@@ -63,6 +63,10 @@ class Vector():
     def dim(self):
         return len(self._coords)
 
+    @property
+    def norm(self):
+        return self.norm(2)
+
     def __iter__(self):
         return self._coords.__iter__()
 
