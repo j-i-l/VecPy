@@ -42,7 +42,7 @@ setup(
     author='Jonas I. Liechti',
     author_email='jon.liechti@gmail.com',
     url='https://github.com/j-i-l/VecPy',
-    download_url='https://github.com/j-i-l/VecPy/tarball/0.1.0',
+    download_url='https://github.com/j-i-l/VecPy/tarball/0.1.4',
     keywords=['vector', 'linear algebra', 'projection'],
     packages=packages,
     package_data={'': ['LICENSE', 'HISTORY']},
