@@ -17,8 +17,6 @@ VecPy: Some Linear Algebra Basics in Python
     >>> # adding scalars and vectors
     >>> v + 2  # adds 2 to every coord
     >>> v + w  # adds coordinate by coordinate
-    ...
-
 Features
 --------
 
@@ -56,14 +54,14 @@ You can do basic rescaling of a vector:
     >>> 
     >>> # get the unit vector
     >>> v_unit = v ^ 0
-...
+
         
 Adding scalar and other vectors:
 
 .. code-block:: python
     >>> v + 2  # adds 2 to every coord
     >>> v + w  # adds coordinate by coordinate
-...
+
 
 Multiplication and dot-product
 
@@ -72,8 +70,6 @@ Multiplication and dot-product
     >>> v * 3  # or 3 * v
     >>> # dot product
     >>> v.dot(w)
-    >>> 
-...
 
 A vector has several properties:
 
@@ -84,7 +80,6 @@ A vector has several properties:
     >>> v.length  # addmitted this is just v.norm(2)
     >>> # Dimension:
     >>> v.dim
-...
 
 You can project one vector on another:
 
@@ -93,14 +88,12 @@ You can project one vector on another:
     >>> w_proj_v = v.proj(w)
     >>> # get length ration of a vector and the projection of another vector onto it
     >>> ratio = v.proj(w, get_scale=True)
-...
 
 Iteration is supported as well:
 
 .. code-block:: python
     >>> # iterate through coordinates
     >>> print [xi for xi in v]
-...
 
 String representations:
 
