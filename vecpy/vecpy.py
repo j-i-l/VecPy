@@ -63,9 +63,6 @@ class Vector():
     def dim(self):
         return len(self._coords)
 
-    @property
-    def norm(self):
-        return self.norm(2)
 
     def __iter__(self):
         return self._coords.__iter__()
@@ -138,7 +135,10 @@ class Vector():
         return back_string
 
     def norm(self, p=2):
-        return float(sum([abs(_xi) ** p for _xi in self]) ** (1 / float(p)))
+        if p == 'inf':
+            return max([abs(_xi) for _xi in self])
+        else:
+            return float(sum([abs(_xi) ** p for _xi in self]) ** (1 / float(p)))
 
     def proj(self, w, get_scale=False):
         """

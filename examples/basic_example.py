@@ -10,6 +10,7 @@ v_twice = v ^ 2
 
 # get the unit vector
 v_unit = v ^ 0
+v_unit = v.unit
 
 # adding scalars and vectors
 v + 2  # adds 2 to every coord
@@ -22,10 +23,10 @@ v * 3  # or 3 * v
 v.dot(w)
 
 # get a norm
-v.norm()  # the default is the Euclidean norm (p=2)
+v.norm('inf')  # the default is the Euclidean norm (p=2)
 
 # get the length of a vector
-v.length
+v.length  # this is just v.norm(2)
 
 # get the dimension
 v.dim

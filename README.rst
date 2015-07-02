@@ -62,8 +62,8 @@ You can do basic rescaling of a vector:
 Adding scalar and other vectors:
 
 .. code-block:: python
-    >>> v + 2  # adds 2 to every coord
-    >>> v + w  # adds coordinate by coordinate
+    >>> v + 2
+    >>> v + w
     ...
 
 
@@ -71,45 +71,41 @@ Multiplication and dot-product
 
 .. code-block:: python
 
-    >>> # multiply by scalar
-    >>> v * 3  # or 3 * v
-    >>> # dot product
+    >>> v * 3
     >>> v.dot(w)
 
 A vector has several properties:
 
 .. code-block:: python
 
-    >>> # Norm:
-    >>> v.norm  # the default is the Euclidean norm (p=2)
-    >>> # Lenth:
-    >>> v.length  # addmitted this is just v.norm(2)
-    >>> # Dimension:
+    >>> v.length
     >>> v.dim
+    
+You can specify which norm to use (default is the Euclidean)
 
+.. code-block:: python
+
+    >>> v.norm(1)
+    >>> v.norm('inf')
+    >>> v.norm(2) == v.length
+    ...
+        
 You can project one vector on another:
 
 .. code-block:: python
 
-    >>> # project one vector onto another
     >>> w_proj_v = v.proj(w)
-    >>> # get length ration of a vector and the projection of another vector onto it
     >>> ratio = v.proj(w, get_scale=True)
 
 Iteration is supported as well:
 
 .. code-block:: python
 
-    >>> # iterate through coordinates
     >>> print [xi for xi in v]
 
 String representations:
 
 .. code-block:: python
 
-    >>> # string representation
     >>> print str(v)
     >>> print '{:[x, y, z]'.format(v)
-    >>> # get unit vector
-    >>> v ^ 0
-
