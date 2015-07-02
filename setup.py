@@ -48,7 +48,7 @@ setup(
     long_description=readme + '\n\n' + history,
     author='Jonas I. Liechti',
     author_email='jon.liechti@gmail.com',
-    url='http://python-requests.org',
+    url='https://github.com/j-i-l/VecPy',
     packages=packages,
     package_data={'': ['LICENSE', 'NOTICE'], 'requests': ['*.pem']},
     package_dir={'vecpy': 'vecpy'},
