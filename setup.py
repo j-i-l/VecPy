@@ -38,7 +38,7 @@ setup(
     name='vecpy',
     version=version,
     description='Simple Vector package to help with basic linear algebra.',
-    long_description=readme + '\n\n' + history,
+    long_description=readme + '\n\n',  # + history,
     author='Jonas I. Liechti',
     author_email='jon.liechti@gmail.com',
     url='https://github.com/j-i-l/VecPy',
