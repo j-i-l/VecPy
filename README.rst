@@ -104,4 +104,4 @@ String representations:
 .. code-block:: python
 
     >>> print str(v)
-    >>> print '{:[x, y, z]'.format(v)
+    >>> print '{:[x, y, z]}'.format(v)
