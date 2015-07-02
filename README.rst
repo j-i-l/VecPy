@@ -64,6 +64,7 @@ Adding scalar and other vectors:
 .. code-block:: python
     >>> v + 2  # adds 2 to every coord
     >>> v + w  # adds coordinate by coordinate
+    ...
 
 
 Multiplication and dot-product
