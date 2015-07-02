@@ -16,20 +16,13 @@ if sys.argv[-1] == 'publish':
     sys.exit()
 
 packages = [
-    'requests',
-    'requests.packages',
-    'requests.packages.chardet',
-    'requests.packages.urllib3',
-    'requests.packages.urllib3.packages',
-    'requests.packages.urllib3.contrib',
-    'requests.packages.urllib3.util',
-    'requests.packages.urllib3.packages.ssl_match_hostname',
+    'vecpy',
 ]
 
 requires = []
 
 version = ''
-with open('requests/__init__.py', 'r') as fd:
+with open('vecpy/__init__.py', 'r') as fd:
     version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
                         fd.read(), re.MULTILINE).group(1)
 
@@ -49,6 +42,8 @@ setup(
     author='Jonas I. Liechti',
     author_email='jon.liechti@gmail.com',
     url='https://github.com/j-i-l/VecPy',
+    download_url='https://github.com/j-i-l/VecPy/tarball/0.1.0',
+    keywords=['vector', 'linear algebra', 'projection'],
     packages=packages,
     package_data={'': ['LICENSE', 'NOTICE'], 'requests': ['*.pem']},
     package_dir={'vecpy': 'vecpy'},
