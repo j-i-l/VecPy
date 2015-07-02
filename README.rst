@@ -7,17 +7,15 @@ VecPy: Some Linear Algebra Basics in Python
 .. image:: https://img.shields.io/pypi/dm/requests.svg
         :target: https://pypi.python.org/pypi/vecpy
 
-
+A quick one:
 
 .. code-block:: python
 
     >>> from vecpy import Vector as Vec
-    >>> # define a vector:
-    >>> v = Vec(0, 2)  # or Vec((0, 2)) or Vec([0, 2])
-    >>> w = Vec(1, 3)
-    >>> # adding scalars and vectors
-    >>> v + 2  # adds 2 to every coord
-    >>> v + w  # adds coordinate by coordinate
+    >>> v = Vec(0, 2)
+    >>> w = Vec([1, 3])
+    >>> v + 2 
+    >>> v + w 
 
 Features
 --------
@@ -44,8 +42,7 @@ It is best explained by example:
 
 .. code-block:: python
 
-    >>> # define a vector:
-    >>> v = Vec(0, 2)  # or Vec((0, 2)) or Vec([0, 2])
+    >>> v = Vec(0, 2)
     >>> w = Vec(1, 3)
 
 
@@ -53,11 +50,10 @@ You can do basic rescaling of a vector:
 
 .. code-block:: python
 
-    >>> # get a vector with twice the lengt (same direction)
     >>> v_twice = v ^ 2
-    >>> 
-    >>> # get the unit vector
+    >>> print v_twice.length == 2 * v.length
     >>> v_unit = v ^ 0
+    >>> print v_unit.length
     
 Adding scalar and other vectors:
 
