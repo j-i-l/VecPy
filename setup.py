@@ -31,8 +31,8 @@ if not version:
 
 with open('README.rst', 'r', 'utf-8') as f:
     readme = f.read()
-with open('HISTORY.rst', 'r', 'utf-8') as f:
-    history = f.read()
+#with open('HISTORY.rst', 'r', 'utf-8') as f:
+#    history = f.read()
 
 setup(
     name='vecpy',
@@ -42,7 +42,7 @@ setup(
     author='Jonas I. Liechti',
     author_email='jon.liechti@gmail.com',
     url='https://github.com/j-i-l/VecPy',
-    download_url='https://github.com/j-i-l/VecPy/tarball/0.1.4',
+    download_url='https://github.com/j-i-l/VecPy/tarball/0.1.5',
     keywords=['vector', 'linear algebra', 'projection'],
     packages=packages,
     package_data={'': ['LICENSE', 'HISTORY']},
