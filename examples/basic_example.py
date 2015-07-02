@@ -41,4 +41,4 @@ print [xi for xi in v]
 
 # string representation
 print str(v)
-print '{:[x, y, z]'.format(v)
+print '{:[x, y, z]}'.format(v)
