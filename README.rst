@@ -58,6 +58,7 @@ You can do basic rescaling of a vector:
 Adding scalar and other vectors:
 
 .. code-block:: python
+
     >>> v + 2
     >>> v + w
     ...
