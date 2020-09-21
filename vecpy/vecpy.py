@@ -8,25 +8,33 @@ This module contains the Vector object.
 """
 __author__ = 'Jonas I Liechti'
 
+import warnings
+from collections import MutableSequence
 
-class Vector():
+
+class Vector(MutableSequence):
     def __init__(self, *args, **kwargs):
         if args:
-            if len(args) == 1 and isinstance(args[0], (list, tuple)):
-                _vec = args[0]
-            elif len(args) == 2 and all([isinstance(arg, (list, tuple)) for arg in args]):
+            if len(args) == 1:
+                if isinstance(args[0], (list, tuple)):
+                    self._coords = list(args[0])
+                    self._orig = [0]*len(args[0])
+                    # todo: check the types of the elements in _coords_
+                else:
+                    self._coords = [args[0]]
+                    self._orig = [0]
+            elif len(args) == 2 and all(
+                    [isinstance(arg, (list, tuple)) for arg in args]):
                 # the vector is defined via two points (start and stop)
                 # keep the two points
-                _vec = (
-                    args[1][0] - args[0][0],
-                    args[1][1] - args[0][1],
-                    args[1][2] - args[0][2] if len(args[0]) == 3 else 0.
-                )
+                self._orig = args[0]
+                self._coords = [d[1]-d[0] for d in zip(args)]
             else:
-                _vec = args
-            if len(_vec) == 2:
-                _vec = list(_vec) + [0.]
-            self.x, self.y, self.z = _vec
+                self._coords = list(args)
+                self._orig = [0]*len(args)
+            # if len(_coords) == 2:
+            #    _coords = list(_coords) + [0.]
+            # self.x, self.y, self.z = self._coords
         else:
             self.x = kwargs.get('x', None)
             self.y = kwargs.get('y', None)
@@ -42,14 +50,91 @@ class Vector():
                 self.y = end_coords[1] - start_coords[1]
             # raise error if self.x/self.y are None
 
+    def __len__(self):
+        return len(self._coords)
+
+    def __getitem__(self, index):
+        return self._coords[index]
+
+    def __setitem__(self, index, value):
+        self._coords.__setitem__(index, value)
+
+    def __delitem__(self, index):
+        if index == len(self._coords) - 1 or index == -1:
+            self._coords.__delitem__(index)
+        else:
+            self._coords[index] = 0
+            warnings.warn("""
+Deletion of a coordinate is only possible for the last coordinate, as deletion
+of an intermediary coordinate would break consistency.  Consider for example
+deleting the y-coord in a 3 dimensional vector. If it were simply removed from
+the list of coordinates then the old z-coordinate would move to the location of
+the old y-coordinate and thus become the new y-coordinate.
+Therefore you can only remove coordinates at the very end of the list of
+coordinates. At any other position the attempt to remove the coordinate will
+simply set its value to 0. So:
+>>> my_vec = Vec(1,2,3)
+>>> del(my_vec[1])
+>>> my_vec
+[1, 0, 3]
+""")
+
+    def insert(self, index, value):
+        if index >= len(self._coords):
+            self._coords.insert(index, value)
+            warnings.warn(
+                "The dimension of the vector was increased!"
+            )
+        else:
+            raise ValueError(
+                    """You can only increase the dimensionality of a vector by
+adding another dimension at the end of the existing
+coordinates.\nTo do so either use `append` or `extend`.
+"""
+            )
+
+    @property
+    def x(self):
+        if self.dim > 3:
+            raise Warning(
+                'You are accessing the x-coordinate of a vector of '
+                'length {0}, consider using the getitem syntax instead: vex[0]'
+            )
+        return self._coords[0]
+
+    @property
+    def y(self):
+        if self.dim > 3:
+            raise Warning(
+                'You are accessing the x-coordinate of a vector of '
+                'length {0}, consider using the getitem syntax instead: vex[1]'
+            )
+        try:
+            return self._coords[1]
+        except IndexError:
+            raise IndexError(
+                'Attempting to access dimension {0} '
+                'for a Vector is of dimension {1}'.format(2, len(self))
+                )
+
+    @property
+    def z(self):
+        if self.dim > 3:
+            raise Warning(
+                'You are accessing the x-coordinate of a vector of '
+                'length {0}, consider using the getitem syntax instead: vex[2]'
+            )
+        try:
+            return self._coords[2]
+        except IndexError:
+            raise IndexError(
+                'Attempting to access dimension {0} '
+                'for a Vector is of dimension {1}'.format(3, len(self))
+                )
+
     @property
     def coords(self):
         return self.x, self.y, self.z
-
-    @property
-    def _coords(self):
-        return self.x, self.y, self.z
-    # to do: make coords take as many dims as input
 
     @property
     def length(self):
@@ -63,11 +148,8 @@ class Vector():
     def dim(self):
         return len(self._coords)
 
-
     def __iter__(self):
         return self._coords.__iter__()
-
-    # to do: implement getitem
 
     def dot(self, w):
         """ The dot product of self and other vector w.
@@ -104,10 +186,12 @@ class Vector():
         Returns a new rescaled Vector
 
         E.g.:
-            - vec ^ 1 returns a new Vector object with the same coordinates as vec
-            - vec ^ 0 returns the unit vector in the direction of vec as a new Vector object
-            - vec ^ 2 returns a new Vector object that has twice the length of vec and points
-                in the same direction
+            - vec ^ 1 returns a new Vector object with the same
+                coordinates as vec
+            - vec ^ 0 returns the unit vector in the direction
+                of vec as a new Vector object
+            - vec ^ 2 returns a new Vector object that has twice
+                the length of vec and points in the same direction
 
         :return:
         """
@@ -138,7 +222,9 @@ class Vector():
         if p == 'inf':
             return max([abs(_xi) for _xi in self])
         else:
-            return float(sum([abs(_xi) ** p for _xi in self]) ** (1 / float(p)))
+            return float(
+                sum([abs(_xi) ** p for _xi in self]) ** (1 / float(p))
+            )
 
     def proj(self, w, get_scale=False):
         """
