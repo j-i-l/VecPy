@@ -28,7 +28,6 @@ class Vector(MutableSequence):
                 # the vector is defined via two points (start and stop)
                 # keep the two points
                 self._orig = args[0]
-                self._coords = [d[1]-d[0] for d in zip(args)]
             else:
                 self._coords = list(args)
                 self._orig = [0]*len(args)
@@ -36,19 +35,21 @@ class Vector(MutableSequence):
             #    _coords = list(_coords) + [0.]
             # self.x, self.y, self.z = self._coords
         else:
-            self.x = kwargs.get('x', None)
-            self.y = kwargs.get('y', None)
-            self.z = kwargs.get('z', 0.0)
-            if 'start_point' in kwargs:
-                start_coords = kwargs.pop('start_point')
-                end_coords = kwargs.pop('end_point')
-                if len(start_coords) == 2:
-                    self.z = 0.0
-                else:
-                    self.z = end_coords[2] - start_coords[2]
-                self.x = end_coords[0] - start_coords[0]
-                self.y = end_coords[1] - start_coords[1]
-            # raise error if self.x/self.y are None
+            _x = kwargs.get('x', None)
+            if _x is not None:
+                _coords = [_x]
+                _y = kwargs.get('y', None)
+                if _y is not None:
+                    _coords.append(_y)
+                    _z = kwargs.get('z', None)
+                    if _z is not None:
+                        _coords.append(_z)
+                self._coords = _coords
+                self._orig = [0]*len(self._coords)
+            else:
+                self._coords = kwargs.pop('end_point', list())
+                self._orig = kwargs.pop('start_point', [0]*len(self._coords))
+        self._coords = [d[1]-d[0] for d in zip(self._orig, self._coords)]
 
     def __len__(self):
         return len(self._coords)
