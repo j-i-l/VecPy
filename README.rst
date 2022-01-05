@@ -1,10 +1,10 @@
 VecPy: Some Linear Algebra Basics in Python
 ===========================================
 
-.. image:: https://img.shields.io/pypi/v/requests.svg
+.. image:: https://img.shields.io/pypi/v/vecpy.svg
     :target: https://pypi.python.org/pypi/vecpy
 
-.. image:: https://img.shields.io/pypi/dm/requests.svg
+.. image:: https://img.shields.io/pypi/dm/vecpy.svg?style=flat-square
         :target: https://pypi.python.org/pypi/vecpy
 
 A quick one:
